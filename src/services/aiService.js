@@ -1,0 +1,4 @@
+import api from './api'; const mock=import.meta.env.VITE_USE_MOCK_API!=='false'; const pause=v=>new Promise(r=>setTimeout(()=>r(v),600))
+export const generateListing=d=>mock?pause({title:`Fresh ${d.crop||'Farm Produce'} from ${d.location||'local farms'}`,description:`Carefully grown ${d.quality||'quality'} produce. Harvested fresh and ready for direct purchase.`,category:'Vegetables',suggestedPrice:65}):api.post('/ai/listing',d).then(r=>r.data)
+export const predictPrice=d=>mock?pause({predictedPrice:72,trend:'Increasing',confidence:86,crop:d.crop}):api.post('/ai/price-prediction',d).then(r=>r.data)
+export const detectDisease=d=>mock?pause({disease:'Early leaf spot (AI prediction)',confidence:88,recommendation:'Isolate affected leaves and consult a local agricultural extension officer before treatment.'}):api.post('/ai/disease-detection',d).then(r=>r.data)
